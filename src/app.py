@@ -40,9 +40,24 @@ def delete(id):
     try:
         db.session.delete(task_to_delete)
         db.session.commit()
-        return redirect('/')
+        return redirect(url_for('index'))
     except:
         return 'There was a problem deleting that task'
+
+
+@app.route('/update/<int:id>', methods=('GET', 'POST'))
+def update(id):
+    task = ToDo.query.get_or_404(id)
+    if request.method == 'POST':
+        task.content = request.form['content']
+
+        try:
+            db.session.commit()
+            return redirect(url_for('index'))
+        except:
+            return 'There was an issues updating your task'
+
+    return render_template('update.html', task=task)
 
 
 if __name__ == '__main__':

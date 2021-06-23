@@ -21,16 +21,16 @@
             <td>
                 <a href="{{ url_for('delete', id=task.id) }}">Delete</a>
                 <br>
-                <a href="">Update</a>
+                <a href="{{ url_for('update', id=task.id) }}">Update</a>
             </td>
         </tr>
         {% endfor %}
     </table>
     {% else %}
-    Start by adding a new task.
+    <h4>Start by adding a new task.</h4>
     {% endif %}
 
-    <form action="/" method="POST">
+    <form action="{{ url_for('index') }}" method="POST">
         <input type="text" name="content" id="content">
         <input type="submit" value="Add task">
     </form>
